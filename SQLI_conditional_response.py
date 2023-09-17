@@ -4,7 +4,6 @@ import time
 
 url = 'https://0ab900f8032f94e982e602ff00230006.web-security-academy.net/'
 
-p1 = log.progress("Fuerza bruta")
 p1 = log.progress("Ataque de fuerza bruta. Cookie:")
 
 time.sleep(2)
